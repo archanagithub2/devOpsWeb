@@ -14,18 +14,7 @@ pipeline {
         }
         
         
-        stage('Build') {
-            steps {
-                sh "mvn test"
-            }
-
-            post {
-                success {
-                    echo 'Hey'
-                    archiveArtifacts artifacts: '**/target/*.war'
-                }
-            }
-        }
+       
         stage('Deploy'){
             steps{
         deploy adapters: [tomcat9(credentialsId: 'Tomacat 9', path: '', url: 'http://172.16.1.129:8181/')], contextPath: null, war: '**/*.war'
